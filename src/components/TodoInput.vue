@@ -16,7 +16,10 @@ export default {
   },
   methods: {
     addTodo: function() {
-      localStorage.setItem(this.newTodoItem, this.newTodoItem);
+      if(!this.newTodoItem) return;
+
+      const obj = {completed: false, item: this.newTodoItem};
+      localStorage.setItem(this.newTodoItem, JSON.stringify(obj));
       this.clearInput();
     },
     clearInput: function() {
@@ -35,12 +38,12 @@ input:focus {
   height: 50px;
   line-height: 50px;
   border-radius: 5px;
-  width: 1213px;
-  margin-left: auto;
+  margin-left: 40px;
 }
 .inputBox input {
   border-style: none;
   font-size: 0.9em;
+  line-height: 50px;
 }
 .addContainer {
   float: right;
