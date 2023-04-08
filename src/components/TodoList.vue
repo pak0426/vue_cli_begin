@@ -1,41 +1,32 @@
 <template>
   <div>
-    <ul>
-      <li v-for="(todoItem, index) in todoItems" v-bind:key="todoItem.item" class="shadow">
-        <span class="checkBtnCompleted" v-bind:class="{checkBtnCompleted: todoItem.completed}" v-on:click="toggleComplete(todoItem)">
-          <i class="checkBtn fa-solid fa-check"></i>
+    <TransitionGroup name="list" tag="ul" class="container">
+      <li v-for="(todoItem, index) in propsData" v-bind:key="todoItem.item" class="shadow">
+        <span v-bind:class="{checkBtnCompleted: todoItem.completed, checkBtn: !todoItem.completed}" v-on:click="toggleComplete(todoItem, index)">
+          <i class="fa-solid fa-check"></i>
         </span>
         <span v-bind:class="{textCompleted: todoItem.completed}">{{ todoItem.item }}</span>
         <span class="removeBtn" v-on:click="removeTodo(todoItem, index)">
           <i class="fa-regular fa-trash-can"></i>
         </span>
       </li>
-    </ul>
+    </TransitionGroup>
   </div>
 </template>
 
 <script>
 export default {
+  props: ['propsData'],
   data: function () {
     return {
-      todoItems: []
-    }
-  },
-  created: function() {
-    if(localStorage.length > 0) {
-      for(let i=0; i < localStorage.length; i++) {
-        this.todoItems.push(JSON.parse(localStorage.getItem(localStorage.key(i))));
-      }
     }
   },
   methods: {
     removeTodo: function (todoItem, index) {
-      this.todoItems.splice(index);
+      this.$emit('removeTodo', todoItem, index);
     },
-    toggleComplete: function (todoItem) {
-      todoItem.completed = !todoItem.completed;
-      localStorage.removeItem(todoItem.item);
-      localStorage.setItem(todoItem.item, JSON.stringify(todoItem));
+    toggleComplete: function (todoItem, index) {
+      this.$emit('toggleComplete', todoItem, index);
     },
   }
 }
@@ -73,5 +64,14 @@ li {
 .removeBtn {
   margin-left: auto;
   color: #de4343;
+}
+.list-enter-active,
+.list-leave-active {
+  transition: all 1s ease;
+}
+.list-enter,
+.list-leave-to {
+  opacity: 0;
+  transform: translateX(30px);
 }
 </style>
