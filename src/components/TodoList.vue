@@ -22,10 +22,10 @@ export default {
     }
   },
   methods: {
-    removeTodo: function (todoItem, index) {
+    removeTodo (todoItem, index) {
       this.$emit('removeTodo', todoItem, index);
     },
-    toggleComplete: function (todoItem, index) {
+    toggleComplete (todoItem, index) {
       this.$emit('toggleComplete', todoItem, index);
     },
   }
@@ -67,7 +67,7 @@ li {
 }
 .list-enter-active,
 .list-leave-active {
-  transition: all 1s ease;
+  transition: all 0.5s ease;
 }
 .list-enter,
 .list-leave-to {

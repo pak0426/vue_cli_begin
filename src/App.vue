@@ -27,26 +27,26 @@ export default {
     }
   },
   methods: {
-    addOneItem: function (todoItem) {
+    addOneItem (todoItem) {
       const obj = {completed: false, item: todoItem};
       localStorage.setItem(todoItem, JSON.stringify(obj));
       this.todoItems.push(obj);
     },
-    removeOneItem: function (todoItem, index) {
+    removeOneItem (todoItem, index) {
       this.todoItems.splice(index, 1);
       localStorage.removeItem(todoItem.item);
     },
-    toggleOneItem: function (todoItem, index) {
+    toggleOneItem (todoItem, index) {
       this.todoItems[index].completed = !this.todoItems[index].completed;
       localStorage.removeItem(todoItem.item);
       localStorage.setItem(todoItem.item, JSON.stringify(todoItem));
     },
-    clearTodoItem: function () {
+    clearTodoItem () {
       localStorage.clear();
       this.todoItems = [];
     },
   },
-  created: function() {
+  created() {
     if(localStorage.length > 0) {
       for(let i=0; i < localStorage.length; i++) {
         this.todoItems.push(JSON.parse(localStorage.getItem(localStorage.key(i))));
