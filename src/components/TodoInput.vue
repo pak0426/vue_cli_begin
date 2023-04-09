@@ -38,11 +38,10 @@ export default {
         this.showModal = !this.showModal;
         return;
       }
-      this.$emit('addTodoItem', this.newTodoItem);
+      this.$store.commit('addOneItem', this.newTodoItem.trim());
       this.clearInput();
     },
     clearInput() {
-      this.$emit('clearTodoItem');
       this.newTodoItem = '';
     },
     closeModal () {
@@ -50,7 +49,7 @@ export default {
     },
   },
   components: {
-    'TodoModal' : TodoModal
+    TodoModal
   }
 }
 </script>
