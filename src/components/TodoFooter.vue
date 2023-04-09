@@ -10,7 +10,7 @@ import { mapMutations } from "vuex";
 export default {
   methods: {
     ...mapMutations({
-      clearTodo: 'clearTodoItem'
+      clearTodo: 'clearAllItem'
     })
   }
 }
